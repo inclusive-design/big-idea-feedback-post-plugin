@@ -1,0 +1,10 @@
+.feedback-post-error,
+.feedback-post-success {
+    border: 0.2rem solid #000;
+    padding: 0.5rem;
+    margin: 1rem 0;
+}
+.feedback-post-form-hidden {
+    display: none;
+    visibility: hidden;
+}
