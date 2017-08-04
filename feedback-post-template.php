@@ -1,17 +1,19 @@
 <?php
 /**
- * Page template for the business feedback form.
+ * Template for displaying the public-facing Feedback Post form.
  *
- * To use this:
- * 1. Create a Page in your Wordpress instance called "Business Feedback Form".
- * 2. Note the name of the page and the filename of this template should match. For more information, see https://developer.wordpress.org/themes/template-files-section/page-template-files/
- * 3. The body / contents of this page can be blank, but it is recommended to provide instructions.
- * 4. Save the page.
- * 5. Go to yoursite.com/business-feedback-form/ to see the page with the feedback form.
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
- * @package a11y
+ * @package feedback_post_plugin
+ */
+
+ /*
+ Copyright 2017 OCAD University
+
+ Licensed under the Educational Community License (ECL), Version 2.0 or the New
+ BSD license. You may not use this file except in compliance with one these
+ Licenses.
+
+ You may obtain a copy of the ECL 2.0 License and BSD License at
+ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
  */
 
 require_once( plugin_dir_path( __FILE__ ) . 'feedback-post-settings.php' );
@@ -71,8 +73,6 @@ get_sidebar();
                     </label>
 
                     <input class="feedback-post-form-hidden" type="text" name="submission_check">
-                    <!-- TODO: pull redirect from the configuration -->
-                    <input type='hidden' name='redirect_to' id='redirect_to' value='business-feedback-form-success/' />
                     <input type="submit">
                   </form>
                 </div>

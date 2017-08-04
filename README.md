@@ -10,7 +10,7 @@ require_once ( plugin_dir_path( __FILE__ ) . 'feedback-post-settings.php' );
 $user = wp_get_current_user();
 if (function_exists('get_feedback_post_role')) {
     if ( in_array(get_feedback_post_role(), (array) $user->roles ) ) {
-        echo '<li><a href="'.get_post_type_archive_link( 'feedback_post' ).'">Feedback Posts</a></li>';
+        echo '<li><a href="'. get_post_type_archive_link( 'feedback_post_type' ).'">'.get_post_type_object('feedback_post_type')->labels->name.'</a></li>';
     }
 }
 ```

@@ -1,15 +1,18 @@
 <?php
 /**
- * Plugin Name: Feedback Posts Plugin
+ * Plugin Name: Feedback Post Plugin
  * Plugin URI:
  * Description: Allows visitors to submit feedback as posts visible to a custom user role.
- * Version: 0.01
+ * Version: 0.0.1
  * Author: Floe Project
  * Author URI: http://floeproject.org
  * License: New BSD license or the Educational Community License, Version 2.0
  *
- * Page template portion of this template based on Page Template Plugin : 'Good To Be Bad'
+ * FeedbackPostPluginTemplate portion of this template based on Page
+ * Template Plugin : 'Good To Be Bad'
  * http://www.wpexplorer.com/wordpress-page-templates-plugin/
+ *
+ * @package feedback_post_plugin
  */
 
 /*
@@ -188,7 +191,8 @@ function feedback_post_plugin_styles () {
 add_action ('wp_enqueue_scripts', 'feedback_post_plugin_styles');
 
 /**
- * Add a custom role that is allowed to see the feedback posts.
+ * Add a new custom role which determines if a user is allowed to see the
+ * feedback posts.
  */
 function feedback_post_view_role_activation () {
     $args = array (
@@ -208,7 +212,7 @@ function create_feedback_post_type() {
         register_post_type( 'feedback_post_type',
             array(
                 'labels' => array(
-                    'name' => 'Feedback Posts',
+                    'name' => FEEDBACK_POST_MENU_NAME, // use the value specified in the feedback-post-settings.php file
                     'singular_name' => 'Feedback Post',
                     'add_new_item' => 'Add New Feedback Post',
                     'menu_name' => 'Feedback'
@@ -219,19 +223,15 @@ function create_feedback_post_type() {
                 'rewrite' => array ('slug' => 'feedback_post_type')
             )
         );
-        //flush_rewrite_rules();
+        flush_rewrite_rules();
     }
 }
 add_action( 'init', 'create_feedback_post_type' );
 
 /**
- * Add two custom fields when viewing the feedback posts in the admin
- * dashboard:
- * 1. the ID of the feedback recipient,
- * 2. the name of the feedback post author.
+ * Add the meta boxes for the custom post type.
  */
-
- function feedback_post_meta_init () {
+function feedback_post_meta_init () {
     add_meta_box(
         "feedback_post_recipient_id",
         "Recipient ID",
@@ -260,16 +260,27 @@ add_action( 'init', 'create_feedback_post_type' );
 }
 add_action("admin_init", "feedback_post_meta_init");
 
+/*
+Callback function to display the name of the feedback recipient.
+The value can not be modified.
+*/
+
 function feedback_post_recipient_id_callback() {
+    /*
+    TODO: Future improvement would be to make the input a select so it can be changed.
+    */
     global $post;
     $custom = get_post_custom($post->ID);
     $feedback_post_recipient = get_userdata($custom['feedback_post_recipient_id'][0]);
     ?>
     <label>Feedback recipient: </label>
-    <input name="feedback_post_recipient_id" value="<?php echo $feedback_post_recipient->display_name;?>"/>
+    <input disabled="disabled" name="feedback_post_recipient_id" value="<?php echo $feedback_post_recipient->display_name;?>"/>
     <?php
 }
 
+/*
+Callback function to display the author's name.
+*/
 function feedback_post_author_callback() {
     global $post;
     $custom = get_post_custom($post->ID);
@@ -280,6 +291,9 @@ function feedback_post_author_callback() {
     <?php
 }
 
+/*
+Callback function to display the author's email.
+*/
 function feedback_post_author_email_callback() {
     global $post;
     $custom = get_post_custom($post->ID);
@@ -288,22 +302,33 @@ function feedback_post_author_email_callback() {
     <label>Feedback author email: </label>
     <input name="feedback_post_author_email" value="<?php echo $author_email;?>"/>
     <?php
-    //echo dirname( __FILE__ ) . '/archive-feedback_post_type.php';
 }
 
-
+/*
+Save any changes made to the meta. Currently only supports changing of author
+and author email.
+*/
 function feedback_post_save_callback(){
     global $post;
-    update_post_meta ($post->ID, "feedback_post_recipient_id", $_POST["feedback_post_recipient_id"]);
     update_post_meta ($post->ID, "feedback_post_author", $_POST["feedback_post_author"]);
     update_post_meta ($post->ID, "feedback_post_author_email", $_POST["feedback_post_author_email"]);
+    /*
+    TODO: Future improvement would be to save changes to the feedback recipient.
+    */
 }
 add_action ('save_post', 'feedback_post_save_callback');
 
+/*
+Function which returns the user role which has privleges to view feedback_post_type.
+FEEDBACK_ROLE_NAME is defined in feedback-post-settings.php.
+*/
 function get_feedback_post_role() {
     return FEEDBACK_ROLE_NAME;
 }
 
+/*
+Function which defines a custom archive page for feedback_post_type.
+*/
 function get_custom_post_type_template( $archive_template ) {
      global $post;
 
