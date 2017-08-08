@@ -212,7 +212,7 @@ function create_feedback_post_type() {
         register_post_type( 'feedback_post_type',
             array(
                 'labels' => array(
-                    'name' => FEEDBACK_POST_MENU_NAME, // use the value specified in the feedback-post-settings.php file
+                    'name' => FEEDBACK_POST_LINK_TEXT, // use the value specified in the feedback-post-settings.php file
                     'singular_name' => 'Feedback Post',
                     'add_new_item' => 'Add New Feedback Post',
                     'menu_name' => 'Feedback'
@@ -319,11 +319,24 @@ function feedback_post_save_callback(){
 add_action ('save_post', 'feedback_post_save_callback');
 
 /*
-Function which returns the user role which has privleges to view feedback_post_type.
-FEEDBACK_ROLE_NAME is defined in feedback-post-settings.php.
+Checks whether the user has privledges to view feedback_post_type posts.
+
+@param string $user The user to check.
+@return boolean true if user is allowed to view feedback_post_type. False otherwise.
 */
-function get_feedback_post_role() {
-    return FEEDBACK_ROLE_NAME;
+function is_feedback_post_role ($user) {
+    if ( in_array(FEEDBACK_ROLE_NAME, (array) $user->roles ) ) {
+        return (true);
+    }
+    return (false);
+}
+
+/*
+Get an HTML formatted link to the feedback_post_type archive.
+*/
+function get_feedback_post_archive_link () {
+    $output = '<a href="'. get_post_type_archive_link( 'feedback_post_type' ).'">'.get_post_type_object('feedback_post_type')->labels->name.'</a>';
+    return $output;
 }
 
 /*

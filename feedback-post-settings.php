@@ -19,17 +19,28 @@
  */
 
 /*
-Strings used in the Feedback Post submission form. Customize as necessary.
-Refreshing the submission form should be enough to display any changes.
+Error message strings used in the Feedback Post submission form. Customize as necessary. Refreshing the submission form should be enough to display any changes.
 */
 define('ERROR_NAME', 'Enter your name.');
 define('ERROR_EMAIL', 'Use a valid email address.');
 define('ERROR_RECIPIENT_ID'  , 'Choose a different recipient. Specified recipient is not registered on this site.');
 define('ERROR_MESSAGE', 'Feedback message should not be blank.');
 define('ERROR_SECURITY', 'Security question answer is incorrect.');
-define('SUBMISSION_ERROR', 'Message was not sent, please try again. If this problem persists, please contact David Pereyra at info@idrc.ocadu.ca');
-define('SECURITY_QUESTION', 'What is the name of this website? (hint: answer has two words)');
-define('SECURITY_ANSWER', 'big idea');
+define('SUBMISSION_ERROR', 'Message was not sent, please try again. If this problem persists, please contact example@example.com');
+
+/*
+Security question and answer.
+*/
+define('SECURITY_QUESTION', 'What is the name of star in the middle of the solar system? (hint: answer has three letters)');
+define('SECURITY_ANSWER', 'sun');
+
+/*
+The name of the menu item associated with the feedback_post_type.
+
+If you change this value, you will need to deactivate and reactivate the
+plugin in order for the new value to take effect.
+*/
+define('FEEDBACK_POST_LINK_TEXT','Visitor Feedback');
 
 /*
 Strings used on the Feedback archive page.
@@ -49,11 +60,4 @@ plugin in order for the new values to take effect.
 define('FEEDBACK_ROLE_NAME', 'feedback_role_name');
 define('FEEDBACK_ROLE_DISPLAY_NAME', 'Feedback Subscriber');
 
-/*
-The name of the menu item associated with the feedback_post_type.
-
-If you change this value, you will need to deactivate and reactivate the
-plugin in order for the new value to take effect.
-*/
-define('FEEDBACK_POST_MENU_NAME','Visitor Feedback');
 ?>
