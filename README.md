@@ -101,3 +101,12 @@ It is possible to change the Feedback Post plugin to use a different role for co
 To define a different role, change the values for the variables `FEEDBACK_ROLE_NAME`, and `FEEDBACK_ROLE_DISPLAY_NAME` in the `feedback-post-settings.php` file.
 
 In order for changes to the role to take effect, you will first need to deactivate and then activate the Feedback Post Plugin.
+
+# License and Copyright
+
+Copyright 2017 OCAD University
+
+Licensed under the Educational Community License (ECL), Version 2.0 or the New BSD license. You may not use this file except in compliance with one these Licenses.
+
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
