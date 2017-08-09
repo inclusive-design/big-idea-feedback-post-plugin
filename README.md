@@ -33,6 +33,7 @@ To add a feedback form to your site, you will first need to create a new Page us
 2. Give a descriptive title which visitors will see. For example: "Give us feedback".
 3. In the body of the page, you can give some additional details about the feedback process. For example: "Help us improve our products and services by filling out the following form."
 4. Publish this new page.
+5. Now that the feedback form is published, you can add it to your site's menu using the Appearance menu, or use the Page's Permalink and use this link somewhere on your site.
 
 <a name="success_page"></a>
 ## Create a "feedback submit success" Page
@@ -67,17 +68,17 @@ The following example shows a link to Feedback Posts in the site navigation if t
 ```php
 <ul>
     <?php
-    echo $nav_menu;
-    /*
-    Check that the Feedback Post plugin is installed.
-    If it is, then display a link to the Feedback Post
-    archive if the user has privledges to view it.
-    */
-    if (function_exists ('is_feedback_post_role')) {
-        if (is_feedback_post_role(wp_get_current_user())) {
-            echo '<li>'.get_feedback_post_archive_link().'</li>';
+        echo $nav_menu;
+        /*
+        Check that the Feedback Post plugin is installed.
+        If it is, then display a link to the Feedback Post
+        archive if the user has privledges to view it.
+        */
+        if (function_exists ('is_feedback_post_role')) {
+            if (is_feedback_post_role(wp_get_current_user())) {
+                echo '<li>'.get_feedback_post_archive_link().'</li>';
+            }
         }
-    }
     ?>
 </ul>
 ```
