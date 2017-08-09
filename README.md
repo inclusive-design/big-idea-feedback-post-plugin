@@ -5,7 +5,7 @@ A WordPress plugin that allows feedback to be submitted as custom posts, and vie
 
 This plugin enables visitors to a Wordpress site the ability to submit feedback to any registered user with the `Feedback Subscriber` role. Visitors do not need to register to submit feedback.
 
-This creates a very easy way for visitors to give their input, however could create a vector for spam and other unwanted content. Currently the submission form is secured with a configurable, screen-reader accessible security question.
+This creates a very easy way for visitors to give their input, however could create a way for spam and other unwanted content. Currently the submission form is secured with some validation techniques, and with a configurable, screen-reader accessible security question.
 
 ## Who Can See Visitor Submitted Feedback?
 
@@ -91,6 +91,17 @@ Feedback Post Plugin uses the `feedback-post-settings.php` file to define some s
 * Submission security question and answer
 * Feedback role name configuration
 * Feedback link text string
+
+## Submission form security question
+
+You can customize the form security question and answer to suit your needs and audience, but the question and answer should be simple enough that most users can answer without too much thinking, and still obscure enough to foil abuse.
+
+The security question should also provide a useful hint that assists in answering the question.
+
+Some example security questions you can use:
+* "What is the second planet from the Sun? (hint: it starts with the letter V)"
+* "What is the name of this website? (hint: it is located at the top of this page)"
+* "What is the name of the fruit, that is also the name of its colour? (hint: rhymes with the word 'doorhinge')"
 
 ## Custom Feedback View Role
 

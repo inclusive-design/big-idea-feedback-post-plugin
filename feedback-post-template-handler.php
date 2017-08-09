@@ -32,7 +32,6 @@ function feedback_post_form_generate_response($type, $messages){
         foreach ($messages as $message) {
             $response .= '<li>'.$message.'</li>';
         }
-        $response .= '<li>Why are there always errors?</li>';
         $response .= '</ul></div>';
     }
 }
@@ -84,6 +83,12 @@ function feedback_post_submit_validation () {
 
         /* Sanitize the input. */
         $form_values = strip_tags_from_post ();
+
+        /* Check the nonce */
+        $nonce_result = wp_verify_nonce ($_POST['feedback_post_submit'],'form_submit');
+        if (! $nonce_result) {
+            $error_messages[] = SUBMISSION_ERROR;
+        }
 
         /* Check the hidden field to see if it was filled in.
         If it's filled in, then it is likely spam. */

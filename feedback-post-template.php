@@ -37,6 +37,8 @@ get_sidebar();
                 <div id="respond">
                   <?php echo $response; ?>
                   <form action="<?php the_permalink(); ?>" method="post">
+                      <?php wp_nonce_field('form_submit','feedback_post_submit'); ?>
+
                     <label for="feedback_post_author">Your name (required):
                         <input type="text" name="feedback_post_author" value="<?php echo esc_attr($_POST['feedback_post_author']); ?>">
                     </label>
