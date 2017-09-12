@@ -17,6 +17,9 @@
  https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
  */
 
+define('SUCCESS_PAGE_GENERAL_ERROR', 'Invalid page type. Reverting to last known value. Please choose from the items in the list.');
+define('SUCCESS_PAGE_PUBLISH_ERROR', 'Page chosen for Submit Success Page has not been published. Publish it so it is visible to the web. Reverting to last known value.');
+
 add_action ('admin_menu', 'feedback_post_plugin_menu');
 add_action ('admin_init', 'feedback_post_plugin_menu_init');
 
@@ -60,14 +63,14 @@ function feedback_post_plugin_menu_init() {
 
 /*
 Callback function for the settings section. Currently this is empty as there
-is only 1 setting on the page and is fairly self descriptive.
+is only 1 setting on the page and does not require additional instructions
+or description.
+
+This callback is required by add_settings_section().
  */
 function feedback_post_plugin_settings_section_callback() {
-    ?>
 
-    <?php
 }
-
 
 /*
 The form field for choosing feedback submit success page.
@@ -78,7 +81,7 @@ function feedback_post_plugin_success_id_callback() {
     $args = array (
         'selected'              => $settings['success_page_id'],
         'name'                  => 'feedback-post-plugin-settings[success_page_id]',
-        'show_option_none'      => "Not specified"
+        'show_option_none'      => 'Not specified'
     );
 
     wp_dropdown_pages($args);
@@ -89,10 +92,10 @@ Lay out the feedback post settings page.
 */
 function create_feedback_post_plugin_options_page() {
     ?>
-    <section class="feedback-post-plugin-admin">
+    <section class='feedback-post-plugin-admin'>
         <h1>Feedback Post Plugin Options</h1>
 
-        <form action="options.php" method="POST">
+        <form action='options.php' method='POST'>
             <?php
             settings_fields('feedback-post-plugin-settings-group');
             do_settings_sections('feedback-post-plugin');
@@ -117,13 +120,13 @@ function feedback_post_plugin_settings_validate($input) {
     if (!empty($input_success_id)) {
         $success_page = get_post($input_success_id);
         if ($success_page->post_status != 'publish') {
-            $error = "Page chosen for Submit Success Page has not been published. Publish it so it is visible to the web. Reverting to last known value.";
+            $error = SUCCESS_PAGE_PUBLISH_ERROR;
         }
         if ($success_page->post_type != 'page') {
-            $error = "Invalid page type. Reverting to last known value. Please choose from the items in the list.";
+            $error = SUCCESS_PAGE_GENERAL_ERROR;
         }
     } else {
-        $error = "Invalid page type. Reverting to last known value. Please choose from the items in the list.";
+        $error = SUCCESS_PAGE_GENERAL_ERROR;
     }
 
     if (empty($error)) {
