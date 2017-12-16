@@ -26,7 +26,7 @@ You may obtain a copy of the ECL 2.0 License and BSD License at
 https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 */
 
-require_once( plugin_dir_path( __FILE__ ) . 'feedback-post-settings.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'feedback-post-strings.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'feedback-post-admin-options.php' );
 
 class FeedbackPostPluginTemplate {
@@ -212,7 +212,7 @@ function create_feedback_post_type() {
         register_post_type( 'feedback_post_type',
             array(
                 'labels' => array(
-                    'name' => FEEDBACK_POST_LINK_TEXT, // use the value specified in the feedback-post-settings.php file
+                    'name' => FEEDBACK_POST_ADMIN_LINK_TEXT, // use the value specified in the feedback-post-strings.php file
                     'singular_name' => 'Feedback Post',
                     'add_new_item' => 'Add New Feedback Post',
                     'menu_name' => 'Feedback'
@@ -351,5 +351,4 @@ function get_custom_post_type_template( $archive_template ) {
      return $archive_template;
 }
 add_filter( 'archive_template', 'get_custom_post_type_template' ) ;
-
 ?>

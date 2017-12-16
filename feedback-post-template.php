@@ -16,7 +16,7 @@
  https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
  */
 
-require_once( plugin_dir_path( __FILE__ ) . 'feedback-post-settings.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'feedback-post-strings.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'feedback-post-template-handler.php' );
 
 feedback_post_submit_validation ();
@@ -33,49 +33,81 @@ get_sidebar();
 
               <div class="entry-content">
                 <?php the_content(); ?>
-
                 <div id="respond">
                   <?php echo $response; ?>
-                  <form action="<?php the_permalink(); ?>" method="post">
+                  <form class="feedback-post-form" action="<?php the_permalink(); ?>" method="post">
                       <?php wp_nonce_field('form_submit','feedback_post_submit'); ?>
 
-                    <label for="feedback_post_author">Your name (required):
-                        <input type="text" name="feedback_post_author" value="<?php echo esc_attr($_POST['feedback_post_author']); ?>">
+                    <label for="feedback_post_author">
+                        <?php echo FORM_AUTHOR_LABEL; ?>
+                        <input type="text" name="feedback_post_author" value="<?php echo esc_attr($_POST['feedback_post_author']); ?>" aria-describedby="feedback_post_author_desc">
                     </label>
+                    <span class="feedback-post-form-desc" id="feedback_post_author_desc">
+                    <?php echo FORM_AUTHOR_DESCRIPTION;?>
+                    </span>
 
-                    <label for="recipient_id">Feedback recipient (required):
-                        <select name="recipient_id">
-                            <optgroup label="Choose a recipient">
-                            <?php
-                                $feedback_post_recipient = get_users(array('role'=>FEEDBACK_ROLE_NAME));
-                                foreach ($feedback_post_recipient as $recipient) {
-                                    echo '<option value="'.$recipient->ID.'"';
-                                    if ($recipient->ID == esc_attr($_POST['$recipient_id'])) {
-                                        echo ' selected';
+
+
+                    <fieldset>
+                        <legend><?php echo FORM_BUSINESS_NAME_FIELDSET_LABEL; ?></legend>
+
+                        <label for="recipient_id">
+                            <?php echo FORM_BUSINESS_NAME_MENU_LABEL; ?>
+
+                            <select id="business_select" name="recipient_id" aria-describedby="recipient_id_desc">
+                                <optgroup label="Choose a recipient">
+                                    <option disabled selected value><?php echo FORM_BUSINESS_NAME_MENU_DEFAULT; ?></option>
+                                    <option value="other" <?php if (strcmp ("other", esc_attr($_POST['$recipient_id'])) == 0) echo selected; ?>><?php echo FORM_BUSINESS_NAME_MENU_OTHER; ?></option>
+                                <?php
+                                    /*
+                                    Populate a Select menu with the registered business names.
+                                    Also add a "Not Listed" item.
+                                    */
+                                    $feedback_post_recipient = get_users(array('role'=>FEEDBACK_ROLE_NAME));
+                                    foreach ($feedback_post_recipient as $recipient) {
+                                        echo '<option value="'.$recipient->ID.'"';
+                                        if ($recipient->ID == esc_attr($_POST['$recipient_id'])) {
+                                            echo ' selected';
+                                        }
+                                        echo '>'.$recipient->display_name.'</option>';
                                     }
-                                    echo '>'.$recipient->display_name.'</option>';
-                                }
-                            ?>
-                        </select>
-                    </label>
+                                ?>
+                            </select>
+                        </label>
+                        <span class="feedback-post-form-desc" id="recipient_id_desc">
+                            <em><?php echo FORM_BUSINESS_NAME_MENU_DESCRIPTION; ?></em>
+                        </span>
 
-                    <label for="message_text">
-                        Message (required):
-                        <textarea type="text" name="message_text"><?php echo esc_textarea($_POST['message_text']); ?></textarea>
+                        <label for="other_business">
+                            <?php echo FORM_BUSINESS_NAME_OTHER_LABEL; ?>
+                            <textarea class="feedback-post-other-business" type="text" name="other_recipient"><?php echo esc_textarea($_POST['other_recipient']); ?></textarea>
+                        </label>
+                    </fieldset>
+
+                    <label for="message_text" aria-labelledby="message_text_desc">
+                        <?php echo FORM_MESSAGE_LABEL; ?>
+                        <textarea class="feedback-post-message-text-area" type="text" name="message_text" aria-describedby="message_text_desc"><?php echo esc_textarea($_POST['message_text']); ?></textarea>
                     </label>
+                    <span class="feedback-post-form-desc" id="message_text_desc">
+                        <em><?php echo FORM_MESSAGE_DESCRIPTION; ?></em>
+                    </span>
 
                     <label for="feedback_post_author_email">
-                        Your email (optional):
-                        <em>Enter your email if you like the business to contact you regarding your feedback.</em>
+                        <?php echo FORM_AUTHOR_EMAIL_LABEL ?>
+                        <input type="text" name="feedback_post_author_email" value="<?php echo esc_attr($_POST['feedback_post_author_email']); ?>" aria-describedby="message_author_email_desc">
                     </label>
-                    <input type="text" name="feedback_post_author_email" value="<?php echo esc_attr($_POST['feedback_post_author_email']); ?>">
+                    <span class="feedback-post-form-desc" id="message_author_email_desc">
+                        <em><?php echo FORM_AUTHOR_EMAIL_DESCRIPTION; ?></em>
+                    </span>
 
-                    <label for="message_security">Security question (required):
-                        <?php echo SECURITY_QUESTION; ?> <input type="text" name="message_security" value="<?php echo esc_attr($_POST['message_security']); ?>">
+                    <label for="message_security">
+                        <?php echo FORM_SECURITY_LABEL; ?>
+                        <em><?php echo SECURITY_QUESTION; ?></em>
+                        <input type="text" name="message_security" value="<?php echo esc_attr($_POST['message_security']); ?>">
                     </label>
 
                     <input class="feedback-post-form-hidden" type="text" name="submission_check">
-                    <input type="submit">
+                    <input class="feedback-post-submit float-center" type="submit" value="Submit Feedback">
                   </form>
                 </div>
 

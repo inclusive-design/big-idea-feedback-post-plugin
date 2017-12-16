@@ -109,7 +109,7 @@ function create_feedback_post_plugin_options_page() {
 /*
 Validate the input on the settings page and display error messages for every
 error that occurs. The error messages are populated from
-feedback-post-settings.php.
+feedback-post-strings.php.
 */
 function feedback_post_plugin_settings_validate($input) {
     $output = null; // the results to return.

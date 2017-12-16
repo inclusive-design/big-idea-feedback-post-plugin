@@ -54,7 +54,7 @@ When the feedback-post-plugin is activated, it will create a new Wordpress user 
 
 Registered users can be given this new role via the Users menu in the dashboard.
 
-If you have an existing role you would rather use (i.e. you want to use the default 'Subscriber' instead), you can make that change by editing the `feedback-post-settings.php` file. See [Customization](#customization) below.
+If you have an existing role you would rather use (i.e. you want to use the default 'Subscriber' instead), you can make that change by editing the `feedback-post-strings.php` file. See [Customization](#customization) below.
 
 <a name="feedback_archive_link"></a>
 ## Add a link to the feedback archive to your site
@@ -85,7 +85,7 @@ The following example shows a link to Feedback Posts in the site navigation if t
 <a name="customization"></a>
 # Customization
 
-Feedback Post Plugin uses the `feedback-post-settings.php` file to define some settings and text labels used. You can modify this file to suit your needs. The settings file contains:
+Feedback Post Plugin uses the `feedback-post-strings.php` file to define some settings and text labels used. You can modify this file to suit your needs. The settings file contains:
 
 * Error message strings
 * Submission security question and answer
@@ -109,7 +109,7 @@ It is possible to change the Feedback Post plugin to use a different role for co
 * you want to use an existing role like the Subscriber or Editor role, or
 * you want to use a different role all together
 
-To define a different role, change the values for the variables `FEEDBACK_ROLE_NAME`, and `FEEDBACK_ROLE_DISPLAY_NAME` in the `feedback-post-settings.php` file.
+To define a different role, change the values for the variables `FEEDBACK_ROLE_NAME`, and `FEEDBACK_ROLE_DISPLAY_NAME` in the `feedback-post-strings.php` file.
 
 In order for changes to the role to take effect, you will first need to deactivate and then activate the Feedback Post Plugin.
 

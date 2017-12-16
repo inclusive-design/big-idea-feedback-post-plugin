@@ -18,21 +18,42 @@
  * https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
  */
 
+ /*
+ Feedback form labels and strings.
+ */
+ define('FORM_AUTHOR_LABEL', 'Your name (required).');
+ define('FORM_AUTHOR_DESCRIPTION', 'You can use a nickname if you would like to remain anonymous.');
+ define('FORM_BUSINESS_NAME_FIELDSET_LABEL', 'Business name (required)');
+ define('FORM_BUSINESS_NAME_MENU_LABEL', 'Choose a business.');
+ define('FORM_BUSINESS_NAME_MENU_DESCRIPTION', 'Who are you leaving feedback for?');
+ define('FORM_BUSINESS_NAME_MENU_DEFAULT', 'Choose a business');
+ define('FORM_BUSINESS_NAME_MENU_OTHER', 'Not listed');
+ define('FORM_BUSINESS_NAME_OTHER_LABEL', 'If a business is not listed, please provide their contact information (i.e. business name, phone number, address)');
+ define('FORM_MESSAGE_LABEL', 'Message (required).');
+ define('FORM_MESSAGE_DESCRIPTION', 'Tell us about your experience or ideas.');
+ define('FORM_AUTHOR_EMAIL_LABEL', 'Your email (optional).');
+ define('FORM_AUTHOR_EMAIL_DESCRIPTION', 'Enter your email if you like the business to contact you regarding your feedback.');
+ define('FORM_SECURITY_LABEL', 'Security question (required):');
+
 /*
 Error message strings used in the Feedback Post submission form. Customize as necessary. Refreshing the submission form should be enough to display any changes.
 */
 define('ERROR_NAME', 'Enter your name.');
-define('ERROR_EMAIL', 'Use a valid email address.');
-define('ERROR_RECIPIENT_ID'  , 'Choose a different recipient. Specified recipient is not registered on this site.');
+define('ERROR_EMAIL', 'The email entered appears to be improperly formatted. Please check the email address.');
+define('ERROR_RECIPIENT_ID', 'Choose a different business. Specified business is not registered on this site.');
+define('ERROR_NO_RECIPIENT', 'Choose a business, or enter information about the business.');
 define('ERROR_MESSAGE', 'Feedback message should not be blank.');
 define('ERROR_SECURITY', 'Security question answer is incorrect.');
 define('SUBMISSION_ERROR', 'Message was not sent, please try again. If this problem persists, please contact example@example.com');
+define('ERROR_OTHER_RECIPIENT', 'If a business is not listed, please provide their contact information.');
 
 /*
 Security question and answer.
 */
-define('SECURITY_QUESTION', 'What is the name of star in the middle of the solar system? (hint: answer has three letters)');
-define('SECURITY_ANSWER', 'sun');
+define('SECURITY_QUESTION', 'What is the second word in the phrase "big idea"? The answer has 4 letters, and is case-insensitive.');
+define('SECURITY_ANSWER', 'idea');
+
+
 
 /*
 The name of the menu item associated with the feedback_post_type.
@@ -40,7 +61,7 @@ The name of the menu item associated with the feedback_post_type.
 If you change this value, you will need to deactivate and reactivate the
 plugin in order for the new value to take effect.
 */
-define('FEEDBACK_POST_LINK_TEXT','Visitor Feedback');
+define('FEEDBACK_POST_ADMIN_LINK_TEXT','Feedback Post Submissions');
 
 /*
 Strings used on the Feedback archive page.

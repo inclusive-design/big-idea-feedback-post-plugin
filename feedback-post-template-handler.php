@@ -16,7 +16,7 @@
  https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
  */
 
-require_once ( plugin_dir_path( __FILE__ ) . 'feedback-post-settings.php' );
+require_once ( plugin_dir_path( __FILE__ ) . 'feedback-post-strings.php' );
 
 /*
 Function to generate response. In this case it is to display error messages.
@@ -61,6 +61,7 @@ function strip_tags_from_post () {
         'feedback_post_author' => wp_strip_all_tags($_POST['feedback_post_author']),
         'feedback_post_author_email' => wp_strip_all_tags($_POST['feedback_post_author_email']),
         'recipient_id' => wp_strip_all_tags($_POST['recipient_id']),
+        'other_recipient' => wp_strip_all_tags($_POST['other_recipient']),
         'message_text' => wp_strip_all_tags($_POST['message_text']),
         'request_follow_up' => wp_strip_all_tags($_POST['request_follow_up']),
         'message_security' => wp_strip_all_tags($_POST['message_security']),
@@ -97,23 +98,27 @@ function feedback_post_submit_validation () {
         }
 
         /* Check name not blank */
-        if (empty($form_values['feedback_post_author'])) {
+        if (empty ($form_values['feedback_post_author'])) {
             $error_messages[] = ERROR_NAME;
         }
 
-        /* Check email is valid form */
-        if (!empty($form_values['feedback_post_author_email']) && ! is_email($form_values['feedback_post_author_email'])){
-            $error_messages[] = ERROR_EMAIL;
-        }
-
-        /* Check that the input business ID matches an ID of a subscriber of the site. */
-        if (!is_valid_recipient_id ($form_values['recipient_id'])) {
+        /* Check if "other" is chosen as a recipient, then check that the
+        additional information field is not blank */
+        if (strcmp ($form_values['recipient_id'], "other") == 0 && strlen ($form_values['other_recipient']) == 0) {
+            $error_messages[] = ERROR_OTHER_RECIPIENT;
+        } else if (!is_valid_recipient_id ($form_values['recipient_id']) && strcmp ($form_values['recipient_id'], "other") != 0) {
+            /* Check that the input business ID matches an ID of a subscriber of the site. */
             $error_messages[] = ERROR_RECIPIENT_ID;
         }
 
         /* Check that message is not empty */
         if (strlen($form_values['message_text']) == 0) {
             $error_messages[] = ERROR_MESSAGE;
+        }
+
+        /* Check email is valid form */
+        if (strlen ($form_values['feedback_post_author_email']) > 0 && !is_email($form_values['feedback_post_author_email'])) {
+            $error_messages[] = ERROR_EMAIL;
         }
 
         /* Check security question answer */
@@ -133,11 +138,17 @@ function feedback_post_submit_validation () {
             );
 
             $post_options = array (
-                'post_content'=>$form_values['message_text'],
                 'post_title'=>'Feedback from '. $form_values['feedback_post_author'],
                 'post_type'=>'feedback_post_type',
                 'post_status'=>'private',
                 'meta_input'=>$meta);
+
+            if (strlen ($form_values['other_recipient']) > 0) {
+                $post_options['post_title']   = "Unregistered Business Feedback from " . $form_values['feedback_post_author'];
+                $post_options['post_content'] .= "<b>Unregistered Business Information:</b><br/>".$form_values['other_recipient']."<br/>";
+                $post_options['post_content'] .= "<b>Message:</b><br/>";
+            }
+            $post_options['post_content'] .= $form_values['message_text'];
 
             $insert_post_result = wp_insert_post ($post_options, true);
 
