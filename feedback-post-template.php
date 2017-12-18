@@ -57,21 +57,40 @@ get_sidebar();
                             <select id="business_select" name="recipient_id" aria-describedby="recipient_id_desc">
                                 <optgroup label="Choose a recipient">
                                     <option disabled selected value><?php echo FORM_BUSINESS_NAME_MENU_DEFAULT; ?></option>
-                                    <option value="other" <?php if (strcmp ("other", esc_attr($_POST['$recipient_id'])) == 0) echo selected; ?>><?php echo FORM_BUSINESS_NAME_MENU_OTHER; ?></option>
-                                <?php
+
+                                    <?php
+                                    /* Add "Not listed / Other" option to the list. */
+                                    echo '<option value="other"';
+                                    if (strcmp ('other', esc_attr($_POST['$recipient_id'])) == 0) {
+                                        echo selected;
+                                    }
+                                    echo '>' . FORM_BUSINESS_NAME_MENU_OTHER . '</option>';
+
                                     /*
-                                    Populate a Select menu with the registered business names.
-                                    Also add a "Not Listed" item.
+                                    Populate a Select menu with the registered business info.
                                     */
                                     $feedback_post_recipient = get_users(array('role'=>FEEDBACK_ROLE_NAME));
                                     foreach ($feedback_post_recipient as $recipient) {
+                                        /* Check that cimy user extra fields plugin is installed and use that metadata.
+                                        Otherwise use the wordpress display name. */
+                                        $option_text = '';
+                                        if (function_exists ('get_cimyFieldValue')) {
+                                            $option_text = get_cimyFieldValue($recipient->ID, 'BUSINESS_NAME');
+                                            $option_text .= ' - '.get_cimyFieldValue($recipient->ID, 'ADDRESS');
+                                            $option_text .= ', '.get_cimyFieldValue($recipient->ID, 'CITY');
+                                            $option_text = cimy_uef_sanitize_content($option_text);
+                                        } else {
+                                            $option_text = $recipient->display_name;
+                                        }
+
                                         echo '<option value="'.$recipient->ID.'"';
                                         if ($recipient->ID == esc_attr($_POST['$recipient_id'])) {
                                             echo ' selected';
                                         }
-                                        echo '>'.$recipient->display_name.'</option>';
+                                        echo '>' . $option_text . '</option>';
                                     }
-                                ?>
+                                    ?>
+                                </optgroup>
                             </select>
                         </label>
                         <span class="feedback-post-form-desc" id="recipient_id_desc">
