@@ -17,6 +17,8 @@
  https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
  */
 
+require_once( plugin_dir_path( __FILE__ ) . 'feedback-post-strings.php' );
+
 get_header();
 get_sidebar();
 ?>
@@ -28,7 +30,6 @@ echo '<h1>'.str_replace('Archives: ','',get_the_archive_title().'</h1>');
 
 /* default ouput - this is replaced if there are Feedback Posts. */
 $output = '<p>'.NO_FEEDBACK.'</p>';
-
 $user = wp_get_current_user();
 
 /* Custom query to loop through feedback posts */
