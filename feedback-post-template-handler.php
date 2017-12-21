@@ -134,8 +134,7 @@ function feedback_post_submit_validation () {
             $meta = array (
                 'feedback_post_recipient_id'=>$form_values['recipient_id'],
                 'feedback_post_author'=>$form_values['feedback_post_author'],
-                'feedback_post_author_email'=>$form_values['feedback_post_author_email']
-            );
+                'feedback_post_author_email'=>$form_values['feedback_post_author_email']);
 
             $post_options = array (
                 'post_title'=>'Feedback from '. $form_values['feedback_post_author'],
@@ -143,7 +142,7 @@ function feedback_post_submit_validation () {
                 'post_status'=>'private',
                 'meta_input'=>$meta);
 
-            if (strlen ($form_values['other_recipient']) > 0) {
+            if (strlen ($form_values['other_recipient']) > 0 && strcmp ($form_values['recipient_id'], "other") == 0) {
                 $post_options['post_title']   = "Unregistered Business Feedback from " . $form_values['feedback_post_author'];
                 $post_options['post_content'] .= "<b>Unregistered Business Information:</b><br/>".$form_values['other_recipient']."<br/>";
                 $post_options['post_content'] .= "<b>Message:</b><br/>";

@@ -234,7 +234,7 @@ add_action( 'init', 'create_feedback_post_type' );
 function feedback_post_meta_init () {
     add_meta_box(
         "feedback_post_recipient_id",
-        "Recipient ID",
+        "Recipient Username",
         "feedback_post_recipient_id_callback",
         "feedback_post_type",
         "normal",
@@ -334,8 +334,12 @@ function is_feedback_post_role ($user) {
 /*
 Get an HTML formatted link to the feedback_post_type archive.
 */
-function get_feedback_post_archive_link () {
-    $output = '<a href="'. get_post_type_archive_link( 'feedback_post_type' ).'">'.get_post_type_object('feedback_post_type')->labels->name.'</a>';
+function get_feedback_post_archive_link ($label) {
+    if (empty($label)) {
+        $label = get_post_type_object('feedback_post_type')->labels->name;
+    }
+
+    $output = '<a href="'. get_post_type_archive_link( 'feedback_post_type' ).'">'.$label.'</a>';
     return $output;
 }
 
