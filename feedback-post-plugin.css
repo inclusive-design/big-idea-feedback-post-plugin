@@ -22,7 +22,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 .feedback-post-form input,
 .feedback-post-form textarea,
 .feedback-post-form select {
-    margin-bottom: 0rem;
+    margin-bottom: 2rem;
 }
 
 .feedback-post-submit {
@@ -49,7 +49,7 @@ https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
 
 .feedback-post-form-desc {
     font-style: italic;
-    margin-bottom: 2rem;
+    margin-bottom: 0.2rem;
     display: block;
 }
 

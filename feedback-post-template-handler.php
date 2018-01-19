@@ -161,6 +161,19 @@ function feedback_post_submit_validation () {
                 $success_page_id = $settings['success_page_id'];
 
                 $location = empty($success_page_id) ? get_redirect_link() : get_permalink($success_page_id);
+
+                // Send email that new Feedback submitted
+                $email_to = get_option('admin_email');
+                $email_header[] = 'From: BIG IDeA <'.get_option('admin_email').'>';
+                $email_header[] = 'Content-Type: text/html; charset=UTF-8';
+                $email_subject = '[BIG IDeA] New feedback on bigidea.one';
+                $email_message = '<p>'.FEEDBACK_EMAIL_DESCRIPTION.'</p>';
+                $email_message .= '<p><strong>Title:</strong><br/>'.$post_options['post_title'].'</p>';
+                $email_message .= '<strong>Content:</strong><br/>';
+                $email_message .= '<p>'.$post_options['post_content'].'</p>';
+
+                wp_mail($email_to, $email_subject, $email_message, $email_header);
+
                 wp_safe_redirect($location);
             	exit;
             }

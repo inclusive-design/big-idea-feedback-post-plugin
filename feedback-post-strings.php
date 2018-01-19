@@ -81,4 +81,8 @@ plugin in order for the new values to take effect.
 define('FEEDBACK_ROLE_NAME', 'feedback_role_name');
 define('FEEDBACK_ROLE_DISPLAY_NAME', 'Feedback Subscriber');
 
+/*
+Text used in the Feedback email notification to administrators.
+*/
+define('FEEDBACK_EMAIL_DESCRIPTION', 'New feedback has been posted on BIG IDeA. To manage this feedback, go to: <a href="https://bigidea.one/wp-admin/edit.php?post_type=feedback_post_type">bigidea.one/wp-admin/edit.php?post_type=feedback_post_type</a>');
 ?>

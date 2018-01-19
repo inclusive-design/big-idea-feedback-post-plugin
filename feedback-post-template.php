@@ -40,11 +40,12 @@ get_sidebar();
 
                     <label for="feedback_post_author">
                         <?php echo FORM_AUTHOR_LABEL; ?>
-                        <input type="text" name="feedback_post_author" value="<?php echo esc_attr($_POST['feedback_post_author']); ?>" aria-describedby="feedback_post_author_desc">
                     </label>
                     <span class="feedback-post-form-desc" id="feedback_post_author_desc">
                     <?php echo FORM_AUTHOR_DESCRIPTION;?>
                     </span>
+                    <input type="text" name="feedback_post_author" value="<?php echo esc_attr($_POST['feedback_post_author']); ?>" aria-describedby="feedback_post_author_desc">
+
 
 
 
@@ -53,49 +54,48 @@ get_sidebar();
 
                         <label for="recipient_id">
                             <?php echo FORM_BUSINESS_NAME_MENU_LABEL; ?>
-
-                            <select id="business_select" name="recipient_id" aria-describedby="recipient_id_desc">
-                                <optgroup label="Choose a recipient">
-                                    <option disabled selected value><?php echo FORM_BUSINESS_NAME_MENU_DEFAULT; ?></option>
-
-                                    <?php
-                                    /* Add "Not listed / Other" option to the list. */
-                                    echo '<option value="other"';
-                                    if (strcmp ('other', esc_attr($_POST['$recipient_id'])) == 0) {
-                                        echo selected;
-                                    }
-                                    echo '>' . FORM_BUSINESS_NAME_MENU_OTHER . '</option>';
-
-                                    /*
-                                    Populate a Select menu with the registered business info.
-                                    */
-                                    $feedback_post_recipient = get_users(array('role'=>FEEDBACK_ROLE_NAME));
-                                    foreach ($feedback_post_recipient as $recipient) {
-                                        /* Check that cimy user extra fields plugin is installed and use that metadata.
-                                        Otherwise use the wordpress display name. */
-                                        $option_text = '';
-                                        if (function_exists ('get_cimyFieldValue')) {
-                                            $option_text = get_cimyFieldValue($recipient->ID, 'BUSINESS_NAME');
-                                            $option_text .= ' - '.get_cimyFieldValue($recipient->ID, 'ADDRESS');
-                                            $option_text .= ', '.get_cimyFieldValue($recipient->ID, 'CITY');
-                                            $option_text = cimy_uef_sanitize_content($option_text);
-                                        } else {
-                                            $option_text = $recipient->display_name;
-                                        }
-
-                                        echo '<option value="'.$recipient->ID.'"';
-                                        if ($recipient->ID == esc_attr($_POST['$recipient_id'])) {
-                                            echo ' selected';
-                                        }
-                                        echo '>' . $option_text . '</option>';
-                                    }
-                                    ?>
-                                </optgroup>
-                            </select>
                         </label>
                         <span class="feedback-post-form-desc" id="recipient_id_desc">
                             <em><?php echo FORM_BUSINESS_NAME_MENU_DESCRIPTION; ?></em>
                         </span>
+                        <select id="business_select" name="recipient_id" aria-describedby="recipient_id_desc">
+                            <optgroup label="Choose a recipient">
+                                <option disabled selected value><?php echo FORM_BUSINESS_NAME_MENU_DEFAULT; ?></option>
+
+                                <?php
+                                /* Add "Not listed / Other" option to the list. */
+                                echo '<option value="other"';
+                                if (strcmp ('other', esc_attr($_POST['$recipient_id'])) == 0) {
+                                    echo selected;
+                                }
+                                echo '>' . FORM_BUSINESS_NAME_MENU_OTHER . '</option>';
+
+                                /*
+                                Populate a Select menu with the registered business info.
+                                */
+                                $feedback_post_recipient = get_users(array('role'=>FEEDBACK_ROLE_NAME));
+                                foreach ($feedback_post_recipient as $recipient) {
+                                    /* Check that cimy user extra fields plugin is installed and use that metadata.
+                                    Otherwise use the wordpress display name. */
+                                    $option_text = '';
+                                    if (function_exists ('get_cimyFieldValue')) {
+                                        $option_text = get_cimyFieldValue($recipient->ID, 'BUSINESS_NAME');
+                                        $option_text .= ' - '.get_cimyFieldValue($recipient->ID, 'ADDRESS');
+                                        $option_text .= ', '.get_cimyFieldValue($recipient->ID, 'CITY');
+                                        $option_text = cimy_uef_sanitize_content($option_text);
+                                    } else {
+                                        $option_text = $recipient->display_name;
+                                    }
+
+                                    echo '<option value="'.$recipient->ID.'"';
+                                    if ($recipient->ID == esc_attr($_POST['$recipient_id'])) {
+                                        echo ' selected';
+                                    }
+                                    echo '>' . $option_text . '</option>';
+                                }
+                                ?>
+                            </optgroup>
+                        </select>
 
                         <label for="other_business">
                             <?php echo FORM_BUSINESS_NAME_OTHER_LABEL; ?>
@@ -105,19 +105,19 @@ get_sidebar();
 
                     <label for="message_text" aria-labelledby="message_text_desc">
                         <?php echo FORM_MESSAGE_LABEL; ?>
-                        <textarea class="feedback-post-message-text-area" type="text" name="message_text" aria-describedby="message_text_desc"><?php echo esc_textarea($_POST['message_text']); ?></textarea>
                     </label>
                     <span class="feedback-post-form-desc" id="message_text_desc">
                         <em><?php echo FORM_MESSAGE_DESCRIPTION; ?></em>
                     </span>
+                    <textarea class="feedback-post-message-text-area" type="text" name="message_text" aria-describedby="message_text_desc"><?php echo esc_textarea($_POST['message_text']); ?></textarea>
 
                     <label for="feedback_post_author_email">
                         <?php echo FORM_AUTHOR_EMAIL_LABEL ?>
-                        <input type="text" name="feedback_post_author_email" value="<?php echo esc_attr($_POST['feedback_post_author_email']); ?>" aria-describedby="message_author_email_desc">
                     </label>
                     <span class="feedback-post-form-desc" id="message_author_email_desc">
                         <em><?php echo FORM_AUTHOR_EMAIL_DESCRIPTION; ?></em>
                     </span>
+                    <input type="text" name="feedback_post_author_email" value="<?php echo esc_attr($_POST['feedback_post_author_email']); ?>" aria-describedby="message_author_email_desc">
 
                     <label for="message_security">
                         <?php echo FORM_SECURITY_LABEL; ?>
