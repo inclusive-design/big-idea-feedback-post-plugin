@@ -84,5 +84,5 @@ define('FEEDBACK_ROLE_DISPLAY_NAME', 'Feedback Subscriber');
 /*
 Text used in the Feedback email notification to administrators.
 */
-define('FEEDBACK_EMAIL_DESCRIPTION', 'New feedback has been posted on BIG IDeA. To manage this feedback, go to: <a href="https://bigidea.one/wp-admin/edit.php?post_type=feedback_post_type">bigidea.one/wp-admin/edit.php?post_type=feedback_post_type</a>');
+define('FEEDBACK_EMAIL_DESCRIPTION', '<p><strong>Do not reply to this email.</strong></p><p>New feedback has been posted on BIG IDeA. To manage this feedback, go to: <a href="https://bigidea.one/wp-admin/edit.php?post_type=feedback_post_type">bigidea.one/wp-admin/edit.php?post_type=feedback_post_type</a></p>');
 ?>
