@@ -1,0 +1,70 @@
+/**
+ * Styling for the Feedback Post submission form.
+ * @package feedback_post_plugin
+ */
+
+/*
+Copyright 2017 OCAD University
+
+Licensed under the Educational Community License (ECL), Version 2.0 or the New
+BSD license. You may not use this file except in compliance with one these
+Licenses.
+
+You may obtain a copy of the ECL 2.0 License and BSD License at
+https://github.com/fluid-project/infusion/raw/master/Infusion-LICENSE.txt
+*/
+.feedback-post-form label {
+    font-size: 1rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+}
+
+.feedback-post-form input,
+.feedback-post-form textarea,
+.feedback-post-form select {
+    margin-bottom: 2rem;
+}
+
+.feedback-post-submit {
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+}
+
+.feedback-post-form fieldset {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.feedback-post-error,
+.feedback-post-success {
+    border: 0.2rem solid #000;
+    padding: 0.5rem;
+    margin: 2rem 0;
+}
+
+.feedback-post-form-hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.feedback-post-form-desc {
+    font-style: italic;
+    margin-bottom: 0.2rem;
+    display: block;
+}
+
+.feedback-post-other-business {
+    height: 5rem;
+}
+
+.feedback-post-form {
+    margin-bottom: 4rem;
+}
+
+.feedback-post-message-text-area {
+    height: 8rem;
+}
+
+.feedback-post-other-business {
+    height: 3rem;
+}
