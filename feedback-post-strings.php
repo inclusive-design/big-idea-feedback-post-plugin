@@ -30,7 +30,7 @@
  define('FORM_BUSINESS_NAME_MENU_OTHER', 'Not listed');
  define('FORM_BUSINESS_NAME_OTHER_LABEL', 'If a business is not listed, please provide their contact information (i.e. business name, phone number, address)');
  define('FORM_MESSAGE_LABEL', 'Message (required).');
- define('FORM_MESSAGE_DESCRIPTION', 'Tell us about your experience or ideas.');
+ define('FORM_MESSAGE_DESCRIPTION', 'Please state the aspect you are writing about (Attitudinal, Communication, Physical, Environmental, Policy, Transportation, Digital/Technical, Other), and then share your experience or ideas.');
  define('FORM_AUTHOR_EMAIL_LABEL', 'Your email (optional).');
  define('FORM_AUTHOR_EMAIL_DESCRIPTION', 'Enter your email if you like the business to contact you regarding your feedback.');
  define('FORM_SECURITY_LABEL', 'Security question (required):');
